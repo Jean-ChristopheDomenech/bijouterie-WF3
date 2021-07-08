@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ parent() }} Ajout Article
+{% endblock %}
+
+{% block TitrePage %} Ajout Article {% endblock %}
+
+{% block body %}
+
+
+
+
+    {{ form_start(form) }}
+
+    <label for="">Nom de l'article</label>
+    {{ form_row(form.nom) }}
+
+
+    <label for="">Prix de l'article</label>
+    {{ form_row(form.prix) }}
+
+    <label for="">Photo de l'article</label>
+    {{ form_row(form.image) }}
+
+
+
+    {{ form_end(form) }}
+
+
+
+{% endblock %}
+
+
+
+
+
