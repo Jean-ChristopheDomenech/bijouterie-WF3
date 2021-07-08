@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
 
-        <title>{% block title %}JIBOUX{% endblock %}</title>
+        <title>{% block title %}BIJOULUX{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
@@ -21,7 +21,7 @@
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">JIBOUX</a>
+            <a class="navbar-brand" href="{{ path('home') }}">BIJOULUX</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,7 +29,7 @@
             <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home
+                        <a class="nav-link active" href="{{ path('home') }}">Accueil
                             <span class="visually-hidden">(current)</span>
                         </a>
                     </li>
@@ -37,7 +37,7 @@
                         <a class="nav-link" href="{{ path('addArticle') }}">Ajout Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="{{ path("listeArticle") }}">Liste des Articles</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">About</a>

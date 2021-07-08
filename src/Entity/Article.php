@@ -37,6 +37,11 @@ class Article
      */
     private $nom;
 
+
+    public $imageModif;//propriété pour gérer la modification de l'image dans le formulaire qui n'est pas relié à la BDD(n'a pas en parametres @ORM\column)
+
+
+
     public function getId(): ?int
     {
         return $this->id;

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ parent() }} Ajout Article
+{% endblock %}
+
+{% block TitrePage %} Ajout Article {% endblock %}
+
+{% block body %}
+
+
+
+
+    {{ form_start(form) }}
+
+    <label for="">Nom de l'article</label>
+    {{ form_row(form.nom) }}
+
+
+    <label for="">Prix de l'article</label>
+    {{ form_row(form.prix) }}
+
+    <label for="">Photo de l'article</label>
+
+
+    {{ form_row(form.image, { 'attr':{"onChange": "loadFile(event)"} }  ) }}
+
+    <div class="row justifi-content-center">
+        <div class="col-md-5 text-center">
+
+            <img id="image" style='width:300px'>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 text-center">
+
+            <img style='width:300px' src="{{ 'upload/' }}{{ article.image }}">
+
+        </div>
+    </div>
+    {{ form_row(form.valider) }}
+
+    {{ form_end(form) }}
+
+    <script>
+
+        var loadFile = function (event) {
+            var image = document.getElementById('image');
+
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+    </script>
+
+
+
+{% endblock %}
+
+
+
+
+

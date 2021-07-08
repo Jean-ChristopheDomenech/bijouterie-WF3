@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ parent() }} Modification d'Article
+{% endblock %}
+
+{% block TitrePage %} Modification d'Article {% endblock %}
+
+{% block body %}
+
+
+
+
+    {{ form_start(form) }}
+
+    <label for="">Nom de l'article</label>
+    {{ form_row(form.nom) }}
+
+
+    <label for="">Prix de l'article</label>
+    {{ form_row(form.prix) }}
+
+    <label for="">Photo de l'article</label>
+    {{ form_row(form.imageModif, { 'attr':{"onChange": "loadFile(event)"} }  ) }}
+    <div class="col-md-12 text-center">
+
+        <img id="image" style='width:300px'>
+
+    </div>
+
+    {{ form_row(form.valider) }}
+
+    {{ form_end(form) }}
+
+    <script>
+
+        var loadFile = function (event) {
+            var image = document.getElementById('image');
+
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+    </script>
+
+
+
+{% endblock %}
+
+
+
+

@@ -15,6 +15,9 @@ class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        if ($options["ajout"]==true):
+
         $builder
             ->add('nom', TextType::class, [
                 'required' => false,
@@ -36,12 +39,48 @@ class ArticleType extends AbstractType
                     'label' => false,
                 ])
             ->add('valider', SubmitType::class);
+
+
+        else:
+            $builder
+                ->add('nom', TextType::class, [
+                    'required' => false,
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => "veuillez saisir le nom de l'article"
+                    ]
+                ])
+                ->add('prix', NumberType::class, [
+                    'required' => false,
+                    'label' => false,
+                    'attr' => [
+                        'placeholder' => "veuillez saisir le prix de l'article"
+                    ]
+                ])
+                ->add('imageModif', FileType::class,
+                    [
+                        'required' => false,
+                        'label' => false,
+                    ])
+                ->add('valider', SubmitType::class);
+
+
+
+
+
+            endif;
     }
+
+
+
+
+
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
+            'ajout'=>false
         ]);
     }
 }

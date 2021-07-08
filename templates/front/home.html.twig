@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}Acceuil
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="row justify-content-center">
+        {% for article in articles  %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <h3 class="card-header">{{ article.nom }}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <h6 class="card-subtitle text-muted">{{ article.prix }}€</h6>
+                    </div>
+                    <img src="{{ asset('upload/') }}{{ article.image }}" alt="">
+                    <div class="card-body">
+                        <p class="card-text">Bijoux de luxe pour tous</p>
+                    </div>
+
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        bijoulux.com
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
