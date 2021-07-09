@@ -19,6 +19,9 @@
     <label for="">Prix de l'article</label>
     {{ form_row(form.prix) }}
 
+    <label for="">Catégorie de l'article</label>
+    {{ form_row(form.categorie) }}
+
     <label for="">Photo de l'article</label>
 
 
@@ -30,15 +33,16 @@
             <img id="image" style='width:300px'>
 
         </div>
-    </div>
+        <div class="row">
+            <div class="col-md-5 text-center">
 
-    <div class="row">
-        <div class="col-md-5 text-center">
+                <img style='width:300px' src="{{ 'upload/' }}{{ article.image }}">
 
-            <img style='width:300px' src="{{ 'upload/' }}{{ article.image }}">
-
+            </div>
         </div>
     </div>
+
+
     {{ form_row(form.valider) }}
 
     {{ form_end(form) }}

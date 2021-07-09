@@ -38,7 +38,12 @@ class Article
     private $nom;
 
 
-    public $imageModif;//propriété pour gérer la modification de l'image dans le formulaire qui n'est pas relié à la BDD(n'a pas en parametres @ORM\column)
+    public $imageModif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Categorie::class, inversedBy="articles")
+     */
+    private $categorie;//propriété pour gérer la modification de l'image dans le formulaire qui n'est pas relié à la BDD(n'a pas en parametres @ORM\column)
 
 
 
@@ -91,6 +96,18 @@ class Article
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }

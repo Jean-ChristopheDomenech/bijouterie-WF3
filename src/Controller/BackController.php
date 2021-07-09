@@ -7,6 +7,7 @@ use App\Entity\Categorie;
 use App\Form\ArticleType;
 use App\Form\CategorieType;
 use App\Repository\ArticleRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -174,54 +175,47 @@ class BackController extends AbstractController
      * @Route("/ajoutCategorie", name="ajoutCategorie")
      * @Route("/modifCategorie/{id}", name="modifCategorie")
      */
-    public function categorie(Categorie $categorie=null, EntityManagerInterface $manager, Request $request)
+    public function categorie(Categorie $categorie=null, EntityManagerInterface  $manager, Request $request)
     {
-
-        if (!$categorie):
-            $categorie = new Categorie();
+        if(!$categorie):
+            $categorie=new Categorie();
         endif;
 
-
-
-        $form = $this->createForm(CategorieType::class, $categorie);
-
-        if ($form->isSubmitted() && $form->isValid()):
-
+        $form=$this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()):
             $manager->persist($categorie);
             $manager->flush();
-            $this->addFlash('succes', 'la categorie a bien été créée');
+            $this->addFlash('success', 'La catégorie a bien été crée');
 
-
-            return $this->redirectToRoute('ajoutCategorie');
-            endif;
-            return $this->render('back/categorie.html.twig',[
-
-                'form'=>$form->createView()
-
-            ]);
-
-
-
+            return $this->redirectToRoute('listeCategorie');
+        endif;
+        return $this->render("back/categorie.html.twig", [
+            'form'=>$form->createView()
+        ]);
     }
 
-
-
+    /**
+     * @Route("/listeCategorie", name="listeCategorie")
+     */
+    public function listeCategorie(CategorieRepository $categorieRepository)
+    {
+        $categories=$categorieRepository->findAll();
+        return $this->render("back/listeCategorie.html.twig", [
+            'categories'=>$categories
+        ]);
+    }
 
     /**
      * @Route("/deleteCategorie/{id}", name="deleteCategorie")
      */
-    //public function delete(Categorie $categorie, EntityManagerInterface $manager)
-    //{
-       // $manager->remove($categorie);
-      //  $manager->flush();
-       // $this->addFlash('success', 'La categorie a bien été supprimé');
-
-      //  return $this->redirectToRoute('');
-
-
-    //}
-
-
+    public function deleteCategorie(EntityManagerInterface $manager, Categorie $categorie)
+    {
+        $manager->remove($categorie);
+        $manager->flush();
+        $this->addFlash('success', 'La catégorie a bien été suprrimée');
+        return $this->redirectToRoute('listeCategorie');
+    }
 
 
 

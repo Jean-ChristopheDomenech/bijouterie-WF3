@@ -32,6 +32,8 @@
             <th>#</th>
             <th>Nom</th>
             <th>Prix</th>
+            <th>Categorie</th>
+
             <th>Photo</th>
             <th>Action</th>
         </tr>
@@ -42,6 +44,7 @@
                 <td>{{ article.id }}</td>
                 <td>{{ article.nom }}</td>
                 <td>{{ article.prix }} €</td>
+                <td>{{ article.categorie.nom }} </td>
                 <td><img height="40" width="40" src="{{ asset('upload/') }}{{ article.image }}" alt=""></td>
                 <td><a class="btn btn-success" href="{{ path('modifArticle',{'id':article.id}) }}">modifier</a>
                     <a class="btn btn-danger" href="{{ path('deleteArticle',{'id':article.id}) }}">supprimer</a>
