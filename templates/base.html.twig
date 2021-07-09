@@ -1,95 +1,105 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
 
-        <title>{% block title %}BIJOULUX{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
+    <title>{% block title %}BIJOULUX{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
 
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.1/lux/bootstrap.min.css" integrity="sha512-EJJuqC8nbI+dUjDM89eZ8dVmckG/vAfKIhmW4pi3Y/S1gE8uvIHuPqpbZ3/DliUQOZbS0Wp7317zoPRRoX+E+A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block stylesheets %}
+        {# {{ encore_entry_link_tags('app') }} #}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.0.1/lux/bootstrap.min.css"
+              integrity="sha512-EJJuqC8nbI+dUjDM89eZ8dVmckG/vAfKIhmW4pi3Y/S1gE8uvIHuPqpbZ3/DliUQOZbS0Wp7317zoPRRoX+E+A=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+              integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+              crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
-        {% endblock %}
+    {% endblock %}
 
 
-    </head>
+</head>
 
-    <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('home') }}">BIJOULUX</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('home') }}">BIJOULUX</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
+                aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarColor02">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ path('home') }}">Accueil
-                            <span class="visually-hidden">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('addArticle') }}">Ajout des Article</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path("listeArticle") }}">Liste des Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path("ajoutCategorie") }}">Ajout de Catégorie</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path("listeCategorie") }}">liste de Catégorie</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ path('home') }}">Accueil
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('addArticle') }}">Ajout des Article</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("listeArticle") }}">Liste des Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("ajoutCategorie") }}">Ajout de Catégorie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("listeCategorie") }}">liste de Catégorie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("register") }}">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("login") }}">Connexion</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ path("logout") }}">Deconnexion</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
-    </nav>
+    </div>
+</nav>
 
 
-    <div class="container mt-5">
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-6">
-                <h1>{% block TitrePage %} {% endblock %}</h1>
-            </div>
+<div class="container mt-5">
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-6">
+            <h1>{% block TitrePage %} {% endblock %}</h1>
         </div>
-
-        {% block body %}
-
-        {% endblock %}
     </div>
 
+    {% block body %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-        {% endblock %}
+    {% endblock %}
+</div>
 
 
+{% block javascripts %}
+    {# {{ encore_entry_script_tags('app') }} #}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
 
-    </body>
+{% endblock %}
+
+
+</body>
 
 
 </html>

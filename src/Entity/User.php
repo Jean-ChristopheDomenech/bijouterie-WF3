@@ -30,26 +30,25 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank("message=saisi le champs svp")
+     * @Assert\NotBlank(message="saisi le champs svp")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email("message=Merci de saisir un email valide")
-     * @Assert\NotBlank("message=saisi le champs svp")
+     * @Assert\Email(message="Merci de saisir un email valide")
+     * @Assert\NotBlank(message="saisi le champs svp")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank("message=saisi le champs svp")
-     * @Assert\EqualTo(propertyPath="confirmPassword, message="les mdp ne corresspondent pas")
+     * @Assert\NotBlank(message="saisi le champs svp")
+     * @Assert\EqualTo(propertyPath="confirmPassword", message="le mdp ne corresspondent pas")
      */
     private $password;
 
     public $confirmPassword;
-
 
 
     /**
@@ -68,7 +67,6 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = ["ROLE_USER"];
-
 
 
     public function getId(): ?int

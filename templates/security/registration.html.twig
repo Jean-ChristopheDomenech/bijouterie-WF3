@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+
+
+
+{% block title %}
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+    {{ form_start(form) }}
+    <label for="">Pseudo :</label>
+    {{ form_row(form.username) }}
+    <label for="">Nom :</label>
+    {{ form_row(form.nom) }}
+    <label for="">Prenom :</label>
+    {{ form_row(form.prenom) }}
+    <label for="">email :</label>
+    {{ form_row(form.email) }}
+    <label for="">Mot de passe :</label>
+    {{ form_row(form.password) }}
+    <label for="">Confirmation du mot de passe :</label>
+    {{ form_row(form.confirmPassword) }}
+    {{ form_row(form.valider) }}
+    {{ form_end(form) }}
+
+
+
+{% endblock %}
+
+
+
+
