@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+
+{% block body %}
+
+
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Prix TTC</th>
+            <th>Total TTC</th>
+            <th>Article</th>
+            <th>Ajouter</th>
+            <th>Supprimer</th>
+            <th>Vider l'Article</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in panier %}
+            <tr>
+                <td>{{ item.article.nom }}</td>
+                <td>{{ item.quantite }}</td>
+                <td>{{ item.article.prix }}€</td>
+                <td>{{ item.totalPrixArticle }}€</td>
+                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt=""></td>
+                <td><a href="{{ path('plusPanier', {id:item.article.id})}}" class="btn btn-success">+</a></td>
+                <td><a href="{{ path('moinsPanier', {id:item.article.id})}}" class="btn btn-danger">-</a></td>
+                <td><a href="{{ path('deletePanier', {id:item.article.id})}}" class="btn btn-warning"> <i class="fas fa-trash"></i> vider</a></td>
+                </td>
+            </tr>
+        {% endfor %}
+            <tr><td><a href="{{ path('deleteAllPanier' )}}" class="btn btn-dark"> <i class="fas fa-trash"></i>Vider Panier</a></td></tr>
+        </tbody>
+    </table>
+  <div>TOTAL = {{ total }} € TTC</div>
+
+{% endblock %}
+
+
+
+
+
+
+

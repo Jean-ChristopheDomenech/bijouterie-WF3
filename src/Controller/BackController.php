@@ -8,6 +8,7 @@ use App\Form\ArticleType;
 use App\Form\CategorieType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategorieRepository;
+use App\Service\Panier\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -215,6 +216,108 @@ class BackController extends AbstractController
         $manager->flush();
         $this->addFlash('success', 'La catégorie a bien été suprrimée');
         return $this->redirectToRoute('listeCategorie');
+    }
+
+
+    /**
+     * @Route("/addPanier/{id}", name="addPanier")
+     */
+
+    public function addPanier($id, PanierService $panierService)
+    {
+        $panierService->add($id);
+        $panier=$panierService->getFullPanier();
+        $total=$panierService->getTotal();
+
+        return $this->redirectToRoute('home', [
+            'panier'=>$panier,
+            'total'=>$total
+
+
+        ]);
+
+
+    }
+
+
+    /**
+     * @Route("/plusPanier/{id}", name="plusPanier")
+     */
+
+    public function plusPanier($id, PanierService $panierService)
+    {
+        $panierService->add($id);
+        $panier=$panierService->getFullPanier();
+        $total=$panierService->getTotal();
+
+        return $this->redirectToRoute('panier', [
+            'panier'=>$panier,
+            'total'=>$total
+
+
+        ]);
+
+    }
+
+
+
+    /**
+     * @Route("/moinsPanier/{id}", name="moinsPanier")
+     */
+    public function moinsPanier($id, PanierService $panierService)
+    {
+        $panierService->remove($id);
+        $panier = $panierService->getFullPanier();
+        $total = $panierService->getTotal();
+
+        return $this->redirectToRoute('panier', [
+            'panier' => $panier,
+            'total' => $total
+
+
+        ]);
+
+    }
+
+        /**
+         * @Route("/deletePanier/{id}", name="deletePanier")
+         */
+        public function DeletePanier($id, PanierService $panierService)
+    {
+        $panierService->delete($id);
+        $panier=$panierService->getFullPanier();
+        $total=$panierService->getTotal();
+
+        return $this->redirectToRoute('panier', [
+            'panier'=>$panier,
+            'total'=>$total
+
+
+        ]);
+
+
+
+
+    }
+    /**
+     * @Route("/deleteAllPanier", name="deleteAllPanier")
+     */
+    public function DeleteAllPanier( PanierService $panierService)
+    {
+        $panierService->deleteAll();
+        $panier=$panierService->getFullPanier();
+        $total=$panierService->getTotal();
+
+        return $this->redirectToRoute('panier', [
+            'panier'=>$panier,
+            'total'=>$total
+
+
+        ]);
+
+
+
+
     }
 
 

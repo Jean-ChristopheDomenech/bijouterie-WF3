@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>{% block title %}BIJOULUX{% endblock %}</title>
+    <title>{% block title %}BIJOULUX {% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
 
@@ -25,7 +25,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('home') }}">BIJOULUX</a>
+        <a class="navbar-brand" href="{{ path('home') }}"> <i class="fas fa-3x fa-gem"></i> BIJOULUX <i class="fas fa-3x fa-gem"></i> </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02"
                 aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -34,44 +34,46 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('home') }}">Accueil
+                    <a class="nav-link active" href="{{ path('home') }}"> <i class="fas fa-home"></i> Accueil
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('addArticle') }}">Ajout des Article</a>
+                    <a class="nav-link" href="{{ path('panier') }}" role="button"
+                       aria-haspopup="true" aria-expanded="false" ><i class="fas fa-cart-arrow-down"></i> Panier</a>
+
+                </li>
+
+
+
+                {% if not app.user  %}
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path("register") }}"> <i class="fas fa-user-circle"></i> Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path("listeArticle") }}">Liste des Articles</a>
+                    <a class="nav-link" href="{{ path("login") }}"> <i class="fas fa-user"></i> Connexion</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path("ajoutCategorie") }}">Ajout de Catégorie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path("listeCategorie") }}">liste de Catégorie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path("register") }}">Inscription</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path("login") }}">Connexion</a>
-                </li>
+                {% else %}
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                       aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                       aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{ app.user.username }}</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Profil</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a class="dropdown-item" href="{{ path('listeArticle') }}">Back-0ffice</a>
+                        {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ path("logout") }}">Deconnexion</a>
+                        <a class="dropdown-item" href="{{ path("logout") }}"> <i class="fas fa-user-times"></i> Deconnexion</a>
                     </div>
                 </li>
+                {% endif %}
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
         </div>
     </div>
 </nav>

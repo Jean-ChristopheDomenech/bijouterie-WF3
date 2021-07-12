@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}Acceuil
+    {{ parent() }}
 {% endblock %}
 
 
@@ -22,8 +22,8 @@
                     </div>
 
                     <div class="card-body">
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+                        <a href="{{  path('addPanier', {id:article.id}) }}" class="card-link"><i class="fas fa-cart-arrow-down"></i> Ajouter au panier</a>
+
                     </div>
                     <div class="card-footer text-muted">
                         bijoulux.com
