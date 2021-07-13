@@ -36,6 +36,16 @@ class Commande
      */
     private $achats;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $statut;
+
     public function __construct()
     {
         $this->achats = new ArrayCollection();
@@ -97,6 +107,30 @@ class Commande
                 $achat->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getStatut(): ?int
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(int $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

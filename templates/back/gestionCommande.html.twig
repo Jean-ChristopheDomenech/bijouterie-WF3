@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+
+{% endblock %}
+
+
+
+
+{% block body %}
+
+
+    {% for commande in commandes %}
+        <p class="text-center bg-info">Commande n° {{ commande.id }}, du {{ commande.date | date('d/m/Y') }} à {{ commande.date | date ('h-i-s') }}</p>
+
+        <table class="table table-hover thead-dark text-center">
+            <thead class="bg-dark text-center" >
+            <tr>
+                <th>Nom</th>
+                <th>Quantité</th>
+                <th>Prix TTC</th>
+                <th>Article</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in commande.achats %}
+                <tr>
+                    <td>{{ item.article.nom }}</td>
+                    <td>{{ item.quantite }}</td>
+                    <td>{{ item.article.prix }}€</td>
+
+
+
+                    <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt=""></td>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="col-md-8 mt-2 mb-5">TOTAL COMMANDE = {{ commande.montantTotal }} € TTC
+
+            {% if commande.statut ==0 %}
+            <a class="btn btn-success" href="{{ path('statut', {id:commande.id, param:1}) }}">Prendre en charge</a></div>
+                {% elseif commande.statut ==1 %}
+                <a class="btn btn-success" href="{{ path('statut', {id:commande.id, param:2}) }}">en cours d'acheminement</a></div>
+                {% elseif commande.statut ==2 %}
+                    <a class="btn btn-success" href="{{ path('statut', {id:commande.id, param:3}) }}">Livré?</a></div>
+                    {% else %}
+                        <a class="btn btn-success">Commande Terminé</a></div>
+            {% endif %}
+
+    {% endfor %}
+
+{% endblock %}
+
+
+

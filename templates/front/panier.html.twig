@@ -19,7 +19,6 @@
             <th>Total TTC</th>
             <th>Article</th>
             <th>Ajouter</th>
-
             <th>Supprimer</th>
             <th>Vider l'Article</th>
         </tr>
@@ -39,9 +38,10 @@
             </tr>
         {% endfor %}
             <tr><td><a href="{{ path('deleteAllPanier' )}}" class="btn btn-dark"> <i class="fas fa-trash"></i>Vider Panier</a></td></tr>
+        <tr><td><a href="{{ path('commande' )}}" class="btn btn-info"> <i class="fas fa-trash"></i>Commander</a></td></tr>
         </tbody>
     </table>
-  <div>TOTAL = {{ total }} € TTC</div>
+  <div>TOTAL PANIER = {{ total }} € TTC</div>
 
 {% endblock %}
 

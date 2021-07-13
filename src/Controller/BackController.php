@@ -2,25 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\Achat;
 use App\Entity\Article;
 use App\Entity\Categorie;
+use App\Entity\Commande;
 use App\Form\ArticleType;
 use App\Form\CategorieType;
 use App\Repository\ArticleRepository;
 use App\Repository\CategorieRepository;
+use App\Repository\CommandeRepository;
 use App\Service\Panier\PanierService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 class BackController extends AbstractController
 {
-
-
-
-
 
 
 
@@ -81,10 +83,7 @@ class BackController extends AbstractController
      */
     public function listeArticle(ArticleRepository $articleRepository)
     {
-
         $articles=$articleRepository->findAll();
-
-
 
         return $this->render('back/listeArticle.html.twig',[
             'articles'=>$articles
@@ -92,21 +91,18 @@ class BackController extends AbstractController
             ]
 
         );
-
-
-
-
-
     }
+
+
+
+
+
 
     /**
      * @Route("/modifArticle/{id}", name="modifArticle")
      */
     public function modifArticle(Article $article, Request $request,EntityManagerInterface $manager)
     {
-
-
-
 
         $form = $this->createForm(ArticleType::class, $article);
 
@@ -149,12 +145,12 @@ class BackController extends AbstractController
         );
 
 
-
-
-
-
-
     }
+
+
+
+
+
 
     /**
      * @Route("/deleteArticle/{id}", name="deleteArticle")
@@ -196,6 +192,11 @@ class BackController extends AbstractController
         ]);
     }
 
+
+
+
+
+
     /**
      * @Route("/listeCategorie", name="listeCategorie")
      */
@@ -207,6 +208,11 @@ class BackController extends AbstractController
         ]);
     }
 
+
+
+
+
+
     /**
      * @Route("/deleteCategorie/{id}", name="deleteCategorie")
      */
@@ -217,6 +223,10 @@ class BackController extends AbstractController
         $this->addFlash('success', 'La catégorie a bien été suprrimée');
         return $this->redirectToRoute('listeCategorie');
     }
+
+
+
+
 
 
     /**
@@ -279,6 +289,10 @@ class BackController extends AbstractController
 
     }
 
+
+
+
+
         /**
          * @Route("/deletePanier/{id}", name="deletePanier")
          */
@@ -299,23 +313,127 @@ class BackController extends AbstractController
 
 
     }
+
+
+
+
+
+
+
     /**
      * @Route("/deleteAllPanier", name="deleteAllPanier")
      */
     public function DeleteAllPanier( PanierService $panierService)
     {
         $panierService->deleteAll();
-        $panier=$panierService->getFullPanier();
-        $total=$panierService->getTotal();
+        $panier = $panierService->getFullPanier();
+        $total = $panierService->getTotal();
 
         return $this->redirectToRoute('panier', [
-            'panier'=>$panier,
-            'total'=>$total
+            'panier' => $panier,
+            'total' => $total
 
 
         ]);
 
+    }
 
+
+
+
+
+
+    /**
+    * @Route("/commande", name="commande")
+    */
+
+    public function commander(PanierService $panierService, SessionInterface $session, EntityManagerInterface $manager)
+    {
+        $panier = $panierService->getFullPanier();
+        $commande = new Commande();
+
+        $commande->setMontantTotal($panierService->getTotal());
+        $commande->setUser($this->getUser());
+        $commande->setStatut((0));
+        $commande->setDate(new \DateTime());
+
+        foreach ($panier as $item):
+
+            $article = $item['article'];
+            $achat = new Achat();
+            $achat->setArticle($article)
+                ->setQuantite($item['quantite'])
+                ->setCommande($commande);
+            $manager->persist($achat);
+
+        endforeach;
+
+        $manager->persist($commande);
+        $manager->flush();
+
+        $panierService->deleteAll();
+
+        $this->addFlash('success', 'votre commande a bien été pris en compte');
+        return $this->redirectToRoute('listeCommande');
+
+
+    }
+
+
+
+
+
+    /**
+     * @Route("/listeCommande", name="listeCommande")
+     */
+
+    public function listeCommande(CommandeRepository $commandeRepository)
+    {
+        $commandes=$commandeRepository->findBy(['user'=>$this->getUser()]);
+
+        return $this->render('front/listeCommande.html.twig',[
+
+                'commandes'=>$commandes
+            ]);
+
+    }
+
+
+
+
+
+    /**
+     * @Route("/gestionCommande", name="gestionCommande")
+     */
+    public function gestionCommande(CommandeRepository $commandeRepository)
+    {
+        $commandes=$commandeRepository->findBy([], ['statut'=>'ASC']);
+
+        return $this->render('back/gestionCommande.html.twig',[
+
+            'commandes'=>$commandes
+        ]);
+
+
+    }
+
+
+
+
+
+
+    /**
+     * @Route("/statut/{id}/{param}", name="statut")
+     */
+    public function statut(CommandeRepository $commandeRepository, EntityManagerInterface $manager, $id, $param)
+    {
+        $commande=$commandeRepository->find($id);
+
+        $commande->setStatut($param);
+        $manager->persist($commande);
+        $manager->flush();
+
+        return $this->redirectToRoute('gestionCommande');
 
 
     }

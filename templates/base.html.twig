@@ -64,6 +64,7 @@
                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> {{ app.user.username }}</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Profil</a>
+                        <a class="dropdown-item" href="{{ path('commande') }}">Commandes</a>
                         {% if is_granted('ROLE_ADMIN') %}
                         <a class="dropdown-item" href="{{ path('listeArticle') }}">Back-0ffice</a>
                         {% endif %}
