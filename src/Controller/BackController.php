@@ -440,6 +440,77 @@ class BackController extends AbstractController
 
 
 
+    /**
+     * @Route("sendMail", name="sendMail")
+     */
+    public function sendMail(Request $request)
+    {
+        $transporter=(new \Swift_SmtpTransport('smtp.gmail.com', 465, 'ssl'))
+            ->setUsername('767Paris4@gmail.com')
+            ->setPassword('Session767Paris4');
+
+        $mailer=new \Swift_Mailer($transporter);
+
+        $mess=$request->request->get('message');
+        $name=$request->request->get('name');
+        $surname=$request->request->get('surname');
+        $subject=$request->request->get('nedd');
+        $from=$request->request->get('email');
+
+        $mess=(new \Swift_Message($subject))
+            ->setFrom($from)
+            ->setTo('767Paris4@gmail.com');
+        $cid=$mess->embed(\Swift_Image::fromPath('upload/diamantgood.jpg'));
+
+        $mess->setBody(
+            $this->render('mail/mail_template.html.twig',[
+                    'from'=>$from,
+                    'name'=>$name,
+                    'surname'=>$surname,
+                    'subject'=>$subject,
+                    'message'=>$mess,
+                    'logo'=>$cid
+            ]),
+            'text/html'
+        );
+        $mailer->send($mess);
+
+        $this->addFlash('success', 'lemail a bien bien envoyé');
+        return $this->redirectToRoute('home');
+
+    }
+
+
+
+
+    /**
+     * @Route("mailForm", name="mailForm")
+     */
+    public function mailForm()
+    {
+        return $this->render('mail/mail_form.html.twig');
+
+
+
+
+    }
+
+
+    /**
+     * @Route("mailTemplate", name="mailTemplate")
+     */
+    public function mailTemplate()
+    {
+        return $this->render('mail/mail_template.html.twig');
+
+
+
+
+    }
+
+
+
+
 
 
 }
