@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,15 +15,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *     fields={"email"},
- *     message="un compte existe deja avec cet email"
+ *     message="Un compte existe déjà avec cette adresse mail"
  * )
  * @method string getUserIdentifier()
  */
 class User implements UserInterface
-//notre "user implementents userinterface" herite obligatoirement des methodes de cette interface:
-//getPassword(), getSalt() et getRoles(), eraseCredential(), getUsername
-
 {
+    // notre user implémentant userInterface hérite à  présent obligatoirement des méthodes de cette interface
+    // getPassword(), getSalt, getRoles(), eraseCedentials(), getUsername
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,36 +33,35 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="saisi le champs svp")
+     * @Assert\NotBlank(message="Veuillez remplir le champs")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message="Merci de saisir un email valide")
-     * @Assert\NotBlank(message="saisi le champs svp")
+     * @Assert\NotBlank(message="Veuillez remplir le champs")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="saisi le champs svp")
-     * @Assert\EqualTo(propertyPath="confirmPassword", message="le mdp ne corresspondent pas")
+     * @Assert\NotBlank(message="Veuillez remplir le champs")
+     * @Assert\EqualTo(propertyPath="confirmPassword", message="Les mots de passe ne sont pas identiques")
      */
     private $password;
 
     public $confirmPassword;
 
-
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="saisi le champs svp")
+     *@Assert\NotBlank(message="Veuillez remplir le champs")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="saisi le champs svp")
+     * @Assert\NotBlank(message="Veuillez remplir le champs")
      */
     private $prenom;
 
@@ -68,6 +70,16 @@ class User implements UserInterface
      */
     private $roles = ["ROLE_USER"];
 
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="user")
+     */
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -146,14 +158,14 @@ class User implements UserInterface
         return $this;
     }
 
+    // getSalt() permet de faire transiter le mot de passe en text brut pour être traité pour l'encodage
     public function getSalt()
-        //permet de faire transiter le mdp en texte brut pour etre traité lors de l'encodage
     {
         // TODO: Implement getSalt() method.
     }
 
+    // cette méthode vise à nettoyer les mots de passes en text brut dans la BDD
     public function eraseCredentials()
-        //vise a nettoyer les mdp en texte brut ds la BDD
     {
         // TODO: Implement eraseCredentials() method.
     }
@@ -162,4 +174,36 @@ class User implements UserInterface
     {
         // TODO: Implement @method string getUserIdentifier()
     }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getUser() === $this) {
+                $commande->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
