@@ -20,6 +20,11 @@ class Article
     private $id;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $prix;
@@ -34,11 +39,8 @@ class Article
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
+    // propriété créée pour gérer la modification de photo dans le formulaire qui n'est pas
+    // reliée à la BDD (n'a pas en paramètre @ORM\column)
 
     public $imageModif;
 
@@ -48,26 +50,30 @@ class Article
     private $categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Commande::class, mappedBy="User")
-     */
-    private $commandes;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Achat::class, mappedBy="Article")
+     * @ORM\ManyToMany(targetEntity=Achat::class, mappedBy="article")
      */
     private $achats;
 
     public function __construct()
     {
-        $this->commandes = new ArrayCollection();
         $this->achats = new ArrayCollection();
-    }//propriété pour gérer la modification de l'image dans le formulaire qui n'est pas relié à la BDD(n'a pas en parametres @ORM\column)
-
-
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
     }
 
     public function getPrix(): ?int
@@ -106,18 +112,6 @@ class Article
         return $this;
     }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
     public function getCategorie(): ?Categorie
     {
         return $this->categorie;
@@ -126,33 +120,6 @@ class Article
     public function setCategorie(?Categorie $categorie): self
     {
         $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeUser($this);
-        }
 
         return $this;
     }

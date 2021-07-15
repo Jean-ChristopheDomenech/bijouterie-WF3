@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use App\Repository\AchatRepository;
@@ -32,6 +31,7 @@ class Achat
      * @ORM\Column(type="integer")
      */
     private $quantite;
+
 
 
     public function getId(): ?int

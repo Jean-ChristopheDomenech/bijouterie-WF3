@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container">
         <h1>Formulaire de contact</h1>
-        <form id="contact-form" method="post" action="{{ path('sendMail') }}" role="form" name="'send_mail">
+        <form id="contact-form" method="post" action="{{ path('sendMail') }}" role="form">
 
 
             <div class="messages"></div>
@@ -77,4 +77,3 @@
         </form>
     </div>
 {% endblock %}
-

@@ -50,7 +50,7 @@ class UserRepository extends ServiceEntityRepository implements UserLoaderInterf
         ;
     }
     */
-    public function loadUserByUsername($username)
+    public function loadUserByUsername(string $username)
     {
         $entityManager = $this->getEntityManager();
 

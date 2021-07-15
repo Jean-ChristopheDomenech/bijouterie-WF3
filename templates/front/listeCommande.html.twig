@@ -1,47 +1,38 @@
 {% extends 'base.html.twig' %}
-
-
 {% block title %}
 
 {% endblock %}
-
-
-
-
 {% block body %}
-
 
     {% for commande in commandes %}
 
-    <table class="table table-hover table-hover thead-dark text-center">
-        <thead class="table-hover thead-dark text-center">
+
+    <table class="table">
+        <thead class="thead-dark text-center">
         <tr>
-            <th>Nom</th>
-            <th>Quantité</th>
-            <th>Prix TTC</th>
-            <th>Article</th>
+            <th >Nom</th>
+            <th >Photo</th>
+            <th >Prix unitaire</th>
+            <th >Prix Total</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         {% for item in commande.achats %}
             <tr>
-                <td>{{ item.article.nom }}</td>
-                <td>{{ item.quantite }}</td>
-                <td>{{ item.article.prix }}€</td>
+                <td>{{  item.article.nom }}</td>
+                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt="{{ item.article.nom }}"></td>
 
+                <td>{{ item.article.prix  }} €</td>
+                <td>{{ item.article.prix * item.quantite }} €</td>
 
-
-                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt=""></td>
-
-                </td>
-            </tr>
         {% endfor %}
         </tbody>
+
     </table>
 
-    <div>TOTAL COMMANDE = {{ commande.montantTotal }} € TTC</div>
-
+    <div class="col-md-8 mt-2"><h4>Total de la commande : {{ commande.montantTotal }} €</h4></div>
 {% endfor %}
+
 
 {% endblock %}
 

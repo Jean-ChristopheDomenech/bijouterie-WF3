@@ -2,12 +2,12 @@
 
 namespace App\Service\Panier;
 
+
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class PanierService
 {
-
 
     public $session;
     public $articleRepository;
@@ -21,56 +21,48 @@ class PanierService
     }
 
 
-    public function add(int $id)
+    public function add(int $id, $param=null)
     {
-        $panier = $this->session->get('panier', []); //si le panier n'existe pas, il sera initialisé en session par un array vide[]
+        $panier = $this->session->get('panier', []); // si le panier n'existe pas il sera initialisé en session par un array vide []
 
-        if (!empty($panier[$id])): //s'il existe une entrée dans le panier à l'indice $id, l'article est donc deja present, on incremente dc la quantité
+        if (!empty($panier[$id])): // si il esxiste une entrée dans panier à l'indice $id, l'article est donc déjà présent, on incrémente donc la quantité
             $panier[$id]++;
+        else: // sinon on l'initialise à 1 en quantité
 
-        else://sinon on initialise à 1 la quantité
             $panier[$id] = 1;
 
         endif;
 
-        $this->session->set('panier', $panier); //on charge les données dans notre session
-
+        $this->session->set('panier', $panier); //on charg à présent les données dans notre session
 
     }
-
 
     public function remove(int $id)
     {
         $panier = $this->session->get('panier', []);
 
-        if (!empty($panier[$id]) && $panier[$id] > 1):
-            $panier[$id]--; // si on a au minimum 2 article en panier, on decremente la quantité
+        if (!empty($panier[$id]) && $panier[$id]>1):
+        $panier[$id]--; // si on a au minimum 2 articles en panier, on décrémente la quantité
 
         else:
-            unset($panier[$id]);//sinon on vide la ligne en session
-
+        unset($panier[$id]); //sinon on vide la ligne en session
         endif;
 
-        $this->session->set('panier', $panier);
-
+        $this->session->set('panier',$panier);
 
     }
-
 
     public function delete(int $id)
     {
         $panier = $this->session->get('panier', []);
 
         if (!empty($panier[$id])):
-
             unset($panier[$id]);
+            endif;
 
-        endif;
-
-        $this->session->set('panier', $panier);
+            $this->session->set('panier', $panier);
 
     }
-
 
     public function deleteAll()
     {
@@ -79,47 +71,44 @@ class PanierService
 
     }
 
-
     public function getFullPanier()
     {
-        //panier[]=$id=>quantite
+     // panier[]= $id=>quantité
 
-        $panier = $this->session->get('panier', []);
+        $panier=$this->session->get('panier', []);
 
-        $panierDetails = [];
+        $panierDetail=[];
 
         foreach ($panier as $id => $quantite):
-            $panierDetails[] = [
-                'article' => $this->articleRepository->find($id),
-                'quantite' => $quantite,
-                'totalPrixArticle'=>$this->articleRepository->find($id)->getPrix()*$quantite
+            $panierDetail[]=[
+              'article'=>$this->articleRepository->find($id),
+              'quantite'=>$quantite
 
             ];
-        endforeach;
 
-        return $panierDetails;
+            endforeach;
+
+            return $panierDetail;
 
     }
-
 
     public function getTotal()
     {
-        $total = 0;
 
-        foreach ($this->getFullPanier() as $item): //$this->getFullPanier() nous retourne notre tableau $panierDetails
 
-           $total+= $item['article']->getPrix()* $item['quantite']; //par ligne d'article différents, on multiplie le prix de l'article par sa quantite commandée que l'on incremente a notre total
+      $total=0;
 
-        endforeach;
 
-        return $total;
+      foreach ($this->getFullPanier() as $item): // $this->>getFullPanier() nous retourne notre tableau multidimmensionnel $panierDetail
+
+          $total += $item['article']->getPrix()* $item['quantite']; // par ligne d'article différents, on multipli le prix de l'article par la quantité commandé que l'on incrémente à notre total
+
+          endforeach;
+
+          return $total;
 
 
     }
-
-
-
-
 
 
 
@@ -129,12 +118,3 @@ class PanierService
 
 
 }
-
-
-
-
-
-
-
-
-?>

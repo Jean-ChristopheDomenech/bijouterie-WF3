@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use App\Repository\CommandeRepository;
@@ -21,6 +20,7 @@ class Commande
     private $id;
 
 
+
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commandes")
      */
@@ -37,7 +37,7 @@ class Commande
     private $achats;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
 

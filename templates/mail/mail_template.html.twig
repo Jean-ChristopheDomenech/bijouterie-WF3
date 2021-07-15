@@ -191,8 +191,7 @@
                                                             align="left">
                                                             <h1 class="text-white text-center"
                                                                 style="color: #ffffff; padding-top: 0; padding-bottom: 0; font-weight: 500; vertical-align: baseline; font-size: 36px; line-height: 43.2px; margin: 0;"
-                                                                align="center">{{ subject }} venant
-                                                                de {{ surname }} {{ name }}<br> contact: {{ from }}</h1>
+                                                                align="center">{{ subject }} venant de {{ surname }} {{ name }}<br> contact: {{ from }}</h1>
 
                                                         </td>
                                                     </tr>
@@ -244,7 +243,9 @@
                                                             align="left">
                                                             <p class="max-w-96 lh-lg text-white text-center text-2xl"
                                                                style="line-height: 2; font-size: 24px; color: #ffffff; max-width: 384px; -premailer-width: 384; width: 100%; margin: 0;"
-                                                               align="center">{{ message }}</p>
+                                                               align="center">
+                                                                {{ message }}
+                                                            </p>
 
                                                         </td>
                                                     </tr>
@@ -271,9 +272,8 @@
                                                     <tr>
                                                         <td style="line-height: 24px; font-size: 16px; border-radius: 9999px; width: 320px; font-weight: 800 !important; margin: 0;"
                                                             align="center" bgcolor="#ffda6a" width="320">
-                                                            <a href="https://bootstrapemail.com"
-                                                               style="color: #111111; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: inline-block; font-weight: 800 !important; white-space: nowrap; background-color: #ffda6a; padding: 16px 12px; border: 1px solid #ffda6a;">SHOP
-                                                                NOW</a>
+                                                            <a href="{{ liens }}"
+                                                               style="color: #111111; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 9999px; line-height: 20px; display: inline-block; font-weight: 800 !important; white-space: nowrap; background-color: #ffda6a; padding: 16px 12px; border: 1px solid #ffda6a;">{{ objectif }}</a>
                                                         </td>
                                                     </tr>
                                                     </tbody>

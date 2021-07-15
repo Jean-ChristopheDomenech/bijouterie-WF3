@@ -2,23 +2,21 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ asset('upload/bijoux-pierre.png') }}">
-    <title>{% block title %}BIJOULUX {% endblock %}</title>
+    <link rel="icon" type="image/png" href="">
+    <title>{% block title %}BIJOULUX | {% endblock %}</title>
     {% block stylesheets %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     {% endblock %}
 </head>
 <body style="overflow-x: hidden;">
-<style>
 
-</style>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-primary bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('home') }}"> <i class="fas fa-3x fa-gem"></i> BIJOULUX <i class="fas fa-3x fa-gem"></i></a>
+        <a class="navbar-brand" href="{{ path('home') }}"><i class="fas fa-gem"></i> BIJOULUX admin <i
+                    class="fas fa-gem"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,15 +24,15 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarColor03">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('home') }}">Accueil
+                    <a class="nav-link active" href="{{ path('home') }}"><i class="fas fa-2x fa-home"></i> HOME
                     </a>
                 </li>
             </ul>
             <div class="d-flex" style="margin-right: 50px">
                 <li class="nav-item dropdown " style="list-style-type: none;">
-                    <a class="nav-link dropdown-toggle my-2 my-sm-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+                    <a class="nav-link dropdown-toggle my-2 my-sm-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-2x fa-user"></i> {{ app.user.username }}</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ path('logout')}}">Déconexion</a>
+                        <a class="dropdown-item" href="{{ path('logout')}}">Déconnexion</a>
                     </div>
                 </li>
             </div>
@@ -61,7 +59,7 @@
             <a class="dropdown-item" href="{{ path('listeArticle') }}">Liste des articles</a>
         </div>
     </li>
-    <a href="{{ path('gestionCommande') }}">Gestion Commandes</a>
+    <a href="{{ path('gestionCommande') }}">Gestion commande</a>
 </div>
 
 <div class="content">

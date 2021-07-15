@@ -1,38 +1,89 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}
+ {{ parent() }}Acceuil
 {% endblock %}
 
 
 {% block body %}
+ {% for message in app.flashes('success') %}
+  <div class="row justify-content-center mt-4">
+   <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+  </div>
+ {% endfor %}
+ {% for message in app.flashes('error') %}
+  <div class="row justify-content-center mt-4">
+   <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+  </div>
+ {% endfor %}
 
-    <div class="row justify-content-center">
-        {% for article in articles %}
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <h3 class="card-header">{{ article.nom }}</h3>
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <h6 class="card-subtitle text-muted">{{ article.prix }}€</h6>
-                    </div>
-                    <img src="{{ asset('upload/') }}{{ article.image }}" alt="">
-                    <div class="card-body">
-                        <p class="card-text">Bijoux de luxe pour tous</p>
-                    </div>
+<div class="row justify-content-center">
+ <div class="col-md-6 alert alert-primary text-white">
+ <form action="{{ path('home') }}" method="post">
+   <div class="">
+    <label for="">Filtrer par catégorie</label>
+    <select name="categorie" id="">
+     <option value="all">Catégorie</option>
+     {% for categorie in categories %}
+     <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+     {% endfor %}
+    </select>
+   </div>
+  <div class="pt-2">
+   <label for="">Votre budget</label>
+   <div class="range-wrap mt-2 ms-4 ">
+    <div class="range-value" id="rangeV"></div>
+    <input id="range" name="prixmax" type="range" min="50" max="2000" value="1500" step="150">
+   </div>
+  </div>
+  <button type="submit" class="btn btn-primary"> Filtrer </button>
+ </form>
+ </div>
+</div>
 
-                    <div class="card-body">
-                        <a href="{{  path('addPanier', {id:article.id}) }}" class="card-link"><i class="fas fa-cart-arrow-down"></i> Ajouter au panier</a>
+ <div class="row justify-content-between">
+ {% for article in articles  %}
+<div class="col-md-4">
+ <div class="card mb-3">
+  <div class="card-body">
+   <h5 class="card-title">{{ article.nom }}</h5>
 
-                    </div>
-                    <div class="card-footer text-muted">
-                        bijoulux.com
-                    </div>
-                </div>
-            </div>
+  </div>
+  <img src="{{ asset('upload/') }}{{ article.image }}" alt="">
+  <hr>
+  <div class="card-body ">
+   <strong>{{ article.prix }}€</strong>
+  </div>
+  <hr>
 
-        {% endfor %}
-    </div>
+  <div class="card-body ">
+   <a href="{{ path('addPanier', {id: article.id, param:'home'}) }}" class="card-link"><i class="fas fa-cart-arrow-down fa-2x"></i><strong>Ajouter au panier</strong></a>
+
+  </div>
+
+ </div>
+</div>
+
+ {% endfor %}
+ </div>
+
+ <script>
+  const
+          range = document.getElementById('range'),
+          rangeV = document.getElementById('rangeV'),
+          setValue = () => {
+           const
+                   newValue = Number((range.value - range.min) * 100 / (range.max - range.min)),
+                   newPosition = 10 - (newValue * 0.2);
+           rangeV.innerHTML = `<span>${range.value}</span>`;
+           rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+
+          };
+  document.addEventListener("DOMContentLoaded", setValue);
+  range.addEventListener('input', setValue);
+
+ </script>
+
+
 {% endblock %}
-
 

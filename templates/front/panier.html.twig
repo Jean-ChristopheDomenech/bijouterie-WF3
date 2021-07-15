@@ -1,53 +1,92 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}
-
+    {{ parent() }}Panier
 {% endblock %}
-
-
-
+ {% block titre %}
+     Panier
+ {% endblock %}
 {% block body %}
 
+    <div class="container">
 
-
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Quantité</th>
-            <th>Prix TTC</th>
-            <th>Total TTC</th>
-            <th>Article</th>
-            <th>Ajouter</th>
-            <th>Supprimer</th>
-            <th>Vider l'Article</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in panier %}
-            <tr>
-                <td>{{ item.article.nom }}</td>
-                <td>{{ item.quantite }}</td>
-                <td>{{ item.article.prix }}€</td>
-                <td>{{ item.totalPrixArticle }}€</td>
-                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt=""></td>
-                <td><a href="{{ path('plusPanier', {id:item.article.id})}}" class="btn btn-success">+</a></td>
-                <td><a href="{{ path('moinsPanier', {id:item.article.id})}}" class="btn btn-danger">-</a></td>
-                <td><a href="{{ path('deletePanier', {id:item.article.id})}}" class="btn btn-warning"> <i class="fas fa-trash"></i> vider</a></td>
-                </td>
-            </tr>
+        {% for message in app.flashes('success') %}
+            <div class="row mt-4">
+                <div class="alert alert-success col-md-6 text-center">
+                    {{ message }}
+                </div>
+            </div>
         {% endfor %}
-            <tr><td><a href="{{ path('deleteAllPanier' )}}" class="btn btn-dark"> <i class="fas fa-trash"></i>Vider Panier</a></td></tr>
-        <tr><td><a href="{{ path('commande' )}}" class="btn btn-info"> <i class="fas fa-trash"></i>Commander</a></td></tr>
-        </tbody>
-    </table>
-  <div>TOTAL PANIER = {{ total }} € TTC</div>
+        {% for message in app.flashes('alert') %}
+            <div class="row mt-4">
+                <div class="alert alert-danger col-md-6 text-center">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if panier is not empty %}
+
+            <table class="table">
+                <thead class="thead-dark text-center">
+                <tr>
+                    <th >Nom</th>
+                    <th >Photo</th>
+                    <th >Prix unitaire</th>
+                    <th >Prix Total</th>
+                    <th ><button class="btn btn-primary">Retirer</button></th>
+                    <th >Quantité</th>
+                    <th ><button class="btn btn-primary">Ajouter</button>  </th>
+                    <th >Annuler</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+
+
+
+                {% for item in panier %}
+                    <tr>
+                        <td>{{  item.article.nom }}</td>
+                        <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.image }}" alt="{{ item.article.nom }}"></td>
+
+                        <td>{{ item.article.prix  }} €</td>
+                        <td>{{ item.article.prix * item.quantite }} €</td>
+                        <td>
+                            <a href="{{ path('removePanier', {'id': item.article.id}) }}"><button class="btn btn-primary text-white">-</button></a></td>
+                        <td>{{ item.quantite }}</td>
+                        <td>
+                            <a href="{{ path('addPanier', {'id': item.article.id, param:'panier'}) }}"><button class="btn btn-primary text-white">+</button></a></td>
+
+                        <td>
+                            <a href="{{ path('deletePanier', {'id': item.article.id}) }}"><button class="btn btn-outline-danger btn-rounded" >Annuler</button></a></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            <div class="col-md-8 mt-2"><h4>Total de la commande : {{ total }} €</h4></div>
+
+            {% if app.user %}
+
+
+                <div class="col-md-4 mb-5 mt-2"><a href="{{ path('commande') }}">
+                        <button class="btn btn-success">Commander</button>
+                    </a>
+                </div>
+
+
+
+            {% else %}
+                <div class="col-md-4 mb-5"><a href="{{ path('login') }}">
+                        <button class="btn btn-success">Connectez-vous pour passer à la commande</button>
+                    </a>
+                </div>
+
+            {% endif %}
+        {% else %}
+            <h3>Votre Panier est vide, allez vite le remplir <a class="hover" href="{{ path('home') }}">Nos Bijoux</a></h3>
+        {% endif %}
+    </div>
 
 {% endblock %}
-
-
-
-
-
-
-

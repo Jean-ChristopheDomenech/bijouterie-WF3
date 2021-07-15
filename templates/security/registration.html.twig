@@ -1,8 +1,4 @@
 {% extends 'base.html.twig' %}
-
-
-
-
 {% block title %}
 
 {% endblock %}
@@ -13,25 +9,21 @@
 
 
     {{ form_start(form) }}
-    <label for="">Pseudo :</label>
+    <label for="">Pseudo</label>
     {{ form_row(form.username) }}
-    <label for="">Nom :</label>
+      <label for="">Nom</label>
     {{ form_row(form.nom) }}
-    <label for="">Prenom :</label>
+      <label for="">Prénom</label>
     {{ form_row(form.prenom) }}
-    <label for="">email :</label>
+      <label for="">Email</label>
     {{ form_row(form.email) }}
-    <label for="">Mot de passe :</label>
+      <label for="">Mot de passe</label>
     {{ form_row(form.password) }}
-    <label for="">Confirmation du mot de passe :</label>
+      <label for="">Confirmation de mot de passe</label>
     {{ form_row(form.confirmPassword) }}
-    {{ form_row(form.valider) }}
+    {{ form_row(form.Valider) }}
     {{ form_end(form) }}
-
-
-
 {% endblock %}
-
 
 
 

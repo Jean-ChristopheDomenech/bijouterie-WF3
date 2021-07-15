@@ -1,21 +1,15 @@
-{% extends 'BaseBack.html.twig' %}
-
-
+{% extends 'baseBack.html.twig' %}
 {% block title %}
 
 {% endblock %}
-
-
 
 {% block body %}
 
     {{ form_start(form) }}
     <label for="">Nom de la catégorie</label>
     {{ form_row(form.nom) }}
-    {{ form_row(form.valider) }}
+    {{ form_row(form.Valider) }}
     {{ form_end(form) }}
-
-
 {% endblock %}
 
 

@@ -76,6 +76,11 @@ class User implements UserInterface
      */
     private $commandes;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $reset;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -201,6 +206,18 @@ class User implements UserInterface
                 $commande->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReset(): ?string
+    {
+        return $this->reset;
+    }
+
+    public function setReset(?string $reset): self
+    {
+        $this->reset = $reset;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,48 +17,49 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez saisir votre pseudo"
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
-            ->add('email', TextType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez saisir votre email"
+            ->add('email', EmailType::class, [
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('password', PasswordType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez saisir un mot de passe"
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('nom', TextType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez saisir votre nom"
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('prenom', TextType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez saisir votre prenom"
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('confirmPassword', PasswordType::class, [
-                "required" => false,
-                "label" => false,
-                "attr" => [
-                    "placeholder" => "Veuillez confirmer votre mot de passe"
+                "required"=>false,
+                "label"=>false,
+                "attr"=>[
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
-            ->add('valider', SubmitType::class);
+            ->add('Valider', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

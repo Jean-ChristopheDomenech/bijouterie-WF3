@@ -18,72 +18,76 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        if ($options["ajout"] == true):
 
-            $builder
-                ->add('nom', TextType::class, [
-                    'required' => false,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => "veuillez saisir le nom de l'article"
-                    ]
-                ])
-                ->add('prix', NumberType::class, [
-                    'required' => false,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => "veuillez saisir le prix de l'article"
-                    ]
-                ])
-                ->add('image', FileType::class,
-                    [
-                        'required' => false,
-                        'label' => false,
-                    ])
-                ->add('valider', SubmitType::class)
-                ->add('categorie', EntityType::class, [
-                    'label' => false,
-                    "class" => Categorie::class,
-                    "choice_label" => "nom"
-                ]);
+        if ($options['ajout']==true):
+        $builder
+            ->add('nom', TextType::class, [
+                'required'=>false,
+                'label'=>false,
+                'attr'=>[
+                    'placeholder'=>'Veuillez saisir le nom de l\'article'
+                ]
+            ])
+            ->add('prix', NumberType::class,[
+                'required'=>false,
+                'label'=>false,
+                'attr'=>[
+                    'placeholder'=>'Veuillez saisir le prix de l\'article'
+                ]
+            ] )
+            ->add('image', FileType::class,[
+                'required'=>false,
+                'label'=>false,
 
+            ])
+            ->add('Valider', SubmitType::class)
+            ->add('categorie', EntityType::class,[
+                "label"=>false,
+                "class"=>Categorie::class,
+                "choice_label"=>"nom"
+            ])
+        ;
         else:
+
             $builder
                 ->add('nom', TextType::class, [
-                    'required' => false,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => "veuillez saisir le nom de l'article"
+                    'required'=>false,
+                    'label'=>false,
+                    'attr'=>[
+                        'placeholder'=>'Veuillez saisir le nom de l\'article'
                     ]
                 ])
-                ->add('prix', NumberType::class, [
-                    'required' => false,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => "veuillez saisir le prix de l'article"
+                ->add('prix', NumberType::class,[
+                    'required'=>false,
+                    'label'=>false,
+                    'attr'=>[
+                        'placeholder'=>'Veuillez saisir le prix de l\'article'
                     ]
-                ])
-                ->add('imageModif', FileType::class,
-                    [
-                        'required' => false,
-                        'label' => false,
-                    ])
-                ->add('valider', SubmitType::class)
-                ->add('categorie', EntityType::class, [
-                    'label' => false,
-                    "class" => Categorie::class,
-                    "choice_label" => "nom"
-                ]);
+                ] )
+                ->add('photoModif', FileType::class,[
+                    'required'=>false,
+                    'label'=>false,
 
-        endif;
+                ])
+                ->add('Valider', SubmitType::class)
+                ->add('categorie', EntityType::class,[
+                    "label"=>false,
+                    "class"=>Categorie::class,
+                    "choice_label"=>"nom"
+                ])
+            ;
+
+            endif;
+
+
+
     }
-
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            'ajout' => false
+            'ajout'=>false
         ]);
     }
 }
