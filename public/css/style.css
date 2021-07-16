@@ -122,6 +122,114 @@ div.content {
 
 
 
+    .first {
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .first > a {
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+    .previous {
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .previous > a {
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+    .page {
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .current {
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .page > a {
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+    .current > a {
+        font-size: large;
+        text-decoration: none;
+        color: white;
+        font-weight: bolder;
+    }
+
+    .next {
+
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .last {
+
+        margin: 5px;
+        height: 30px;
+        width: 50px;
+        border-radius: 50%;
+        background-color: black;
+
+
+    }
+
+    .next > a {
+
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+    .last > a {
+        text-decoration: none;
+        color: white;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+
+
+
 
 
 

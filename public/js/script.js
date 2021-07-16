@@ -1,4 +1,4 @@
-// Rubberband Input
+
 const rubberIpts = document.querySelectorAll(".rubber-ipt");
 
 for (var i = 0; i < rubberIpts.length; i++) {

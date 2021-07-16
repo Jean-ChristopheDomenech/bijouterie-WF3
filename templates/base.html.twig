@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ asset('upload/bijoux-pierre.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('upload/diamantgood.jpg') }}">
     <title>{% block title %}BIJOULUX | {% endblock %}</title>
     {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
@@ -13,16 +13,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
               integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
               crossorigin="anonymous" referrerpolicy="no-referrer"/>
-        <link rel="stylesheet" href="{{ asset('CSS/style.css') }}">
-        {# {{ encore_entry_link_tags('app') }} #}
+        <link href=" rel="stylesheet {{ asset('css/style.css') }}" >
     {% endblock %}
 
-    {% block javascripts %}
-        <script src="{{ asset('js/script.js') }}"></script>
-    {% endblock %}
+
 </head>
+
 <body style="overflow-x: hidden;">
-<nav class="navbar navbar-expand-lg navbar-primary bg-info">
+<nav class="navbar navbar-expand-sm navbar-primary bg-info">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('home') }}"> <i class="fas fa-gem"></i> BIJOULUX <i
                     class="fas fa-gem"></i> </a>
@@ -89,10 +87,11 @@
 
 <div class="container mt-3">
     {% block body %}{% endblock %}
-    {% block JS %}
+    {% block javascripts %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-                crossorigin="anonymous"></script>
+                                    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+                                    crossorigin="anonymous"></script>
+        <script src="{{ asset('js/script.js') }}"></script>
     {% endblock %}
 </div>
 </body>
